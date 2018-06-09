@@ -1049,7 +1049,6 @@ GameObject:
   - component: {fileID: 282840814}
   - component: {fileID: 282840813}
   - component: {fileID: 282840811}
-  - component: {fileID: 282840815}
   - component: {fileID: 282840812}
   - component: {fileID: 282840816}
   m_Layer: 0
@@ -1129,17 +1128,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &282840815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 282840810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ccba823837e2492fb8e01029719f983, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &282840816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4039,7 +4027,7 @@ GameObject:
   - component: {fileID: 934622250}
   - component: {fileID: 934622251}
   m_Layer: 2
-  m_Name: Player
+  m_Name: CubePlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4105,8 +4093,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 934622245}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 1.376, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.66, z: -2.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4138,6 +4126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6ae366a82244e109ee3e7f6e2aafd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   sizey: 0
   fallMultiplier: 2.5
   lowJumpMultiplier: 2

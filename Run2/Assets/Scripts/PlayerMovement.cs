@@ -3,7 +3,8 @@
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
-    private Collider collider;
+    new private Collider collider;
+    public Animator anim;
     public float sizey;
 
     public float fallMultiplier = 2.5f;
@@ -11,8 +12,10 @@ public class PlayerMovement : MonoBehaviour
     [Range(1,10)]
     public float jumpVelocity;
     public float speed;
+    private bool pressJump;
 
-	private void Awake()
+
+	private void Start()
 	{
         collider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
@@ -20,27 +23,30 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            rb.velocity = Vector3.left * speed;
-
-        }
-        
+     
         // jump button
         if(isGround() && Input.GetButtonDown("Jump")) {
             rb.velocity = Vector3.up * jumpVelocity;
-        } else {
-            if(Input.GetKeyDown(KeyCode.A)) {
-            rb.velocity = Vector3.left * speed;
-            
         }
-        }
-        if(rb.velocity.y < 0) {
+        if (rb.velocity.y < 0)
+        {
             rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-
-        } else if(rb.velocity.y > 0 && !Input.GetButton("Jump")) {
-            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
+        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            pressJump = true;
+        }
+
+        if(isGround() && pressJump) {
+            //Do animation of squish
+            anim.SetBool("isFall", true);
+            print(1);
+            pressJump = false;
+        }
+        //if(isGround() && !pressJump) {
+        //    anim.SetBool("isFall", false);
+        //}
 
     }
     bool isGround() {
