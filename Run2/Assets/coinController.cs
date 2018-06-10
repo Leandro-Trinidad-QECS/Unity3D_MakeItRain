@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class coinController : MonoBehaviour {
-    public float sizey;
     public int amount = 1;
     public float scaleAmmount;
     public float scaledur = 0.5f;
     public Vector3 scaleSpeed;
     private coinController otherCoin;
-    new private Collider collider;
+    private Score playerscore;
+    new private MeshCollider collider;
 	// Use this for initialization
 	void Start () {
-        collider = GetComponent<Collider>();
+        collider = GetComponent<MeshCollider>();
 	}
 	
 	// Update is called once per frame
@@ -26,11 +26,20 @@ public class coinController : MonoBehaviour {
 	}
 	private void OnCollisionEnter(Collision collision)
 	{
-        otherCoin = collision.gameObject.GetComponent<coinController>();
+        if(collision.collider.CompareTag("coin")) {
+            otherCoin = collision.gameObject.GetComponent<coinController>();
 
-        if(amount <= otherCoin.amount) {
-            otherCoin.amount += amount;
-            otherCoin.scaleAmmount += scaledur;
+            if (amount <= otherCoin.amount)
+            {
+                otherCoin.amount += amount;
+                otherCoin.scaleAmmount += scaledur;
+                Destroy(gameObject);
+            }
+        }
+
+        if(collision.collider.CompareTag("Player")) {
+            playerscore = collision.gameObject.GetComponent<Score>();
+            playerscore.score += amount;
             Destroy(gameObject);
         }
 
@@ -41,16 +50,4 @@ public class coinController : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    bool isGround()
-    {
-        // checs if the user is touching the ground using raycast
-        Ray ray = new Ray(transform.position, -transform.up);
-        RaycastHit hit;
-        sizey = (collider.bounds.size.y / 2) + 0.1f;
-        if (Physics.Raycast(ray, out hit, sizey))
-        {
-            return true;
-        }
-        return false;
-    }
 }
