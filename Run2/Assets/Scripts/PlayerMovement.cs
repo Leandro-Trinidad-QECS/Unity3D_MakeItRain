@@ -23,8 +23,10 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
     {
-     
+
         // jump button
+        var x = Input.GetAxis("Horizontal") * Time.deltaTime * 10.0f;
+        transform.Translate(x, 0,0);
         if(isGround() && Input.GetButtonDown("Jump")) {
             rb.velocity = Vector3.up * jumpVelocity;
         }

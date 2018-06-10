@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class coinController : MonoBehaviour {
     public float sizey;
+    public int amount = 1;
+    public float scaleAmmount;
+    public float scaledur = 0.5f;
+    public Vector3 scaleSpeed;
+    private coinController otherCoin;
     new private Collider collider;
 	// Use this for initialization
 	void Start () {
@@ -13,15 +18,26 @@ public class coinController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.Rotate(0, 5, 0, Space.World);
+        transform.localScale = scaleSpeed * scaleAmmount;
 
-        if(isGround()) {
-            StartCoroutine(Destroyobj());
+        StartCoroutine(Destroyobj());
+
+
+	}
+	private void OnCollisionEnter(Collision collision)
+	{
+        otherCoin = collision.gameObject.GetComponent<coinController>();
+
+        if(amount <= otherCoin.amount) {
+            otherCoin.amount += amount;
+            otherCoin.scaleAmmount += scaledur;
+            Destroy(gameObject);
         }
 
 	}
 
-    IEnumerator Destroyobj() {
-        yield return new WaitForSeconds(5);
+	IEnumerator Destroyobj() {
+        yield return new WaitForSeconds(30);
         Destroy(gameObject);
     }
 
